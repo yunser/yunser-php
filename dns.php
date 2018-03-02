@@ -32,102 +32,38 @@ if ("WINNT" == PHP_OS || "WIN32" == PHP_OS) {
 	exit();
 }
 
-switch($t){
+switch($t) {
 	default:
 		echo '错误的参数';
 		exit();
 		break;
 	case 'ns':	//=== NS记录 ===//
 		$CACHE = dns_get_record($query, DNS_NS);
-		$count = count($CACHE) - "1";
-		// for ($i = 0; $i <= $count; $i++){
-		// 	getDNS('NS',$CACHE[$i]['host'], $CACHE[$i]['target'], '-', $CACHE[$i]['ttl']);
-		// }
-		if ($count == -1) {
-			echo '没有相关记录或者查询超时,请稍后重试!';
-		} else {
-			echo json_encode($CACHE);
-		}
 		break;	
 	case 'a':	//=== A记录 ===//
 		$CACHE = dns_get_record($query, DNS_A);
-		$count = count($CACHE) - "1";
-		// for ($i = 0; $i <= $count; $i++){
-		// 	getDNS('A', $CACHE[$i]['host'], $CACHE[$i]['ip'], '-', $CACHE[$i]['ttl']);
-		// }
-		if ($count == -1) {
-			echo '没有相关记录或者查询超时,请稍后重试!';
-		} else {
-			echo json_encode($CACHE);
-		}
-		break;
-		
+		break;	
 	case 'aaaa'://=== AAAA记录 ===//
 		$CACHE = dns_get_record($query, DNS_AAAA);
-		$count = count($CACHE) - "1";
-		// for ($i = 0; $i <= $count; $i++){
-		// 	getDNS('AAAA', $CACHE[$i]['host'], $CACHE[$i]['target'], '-', $CACHE[$i]['ttl']);
-		// }
-		if ($count == -1) {
-			echo '没有相关记录或者查询超时,请稍后重试!';
-		} else {
-			echo json_encode($CACHE);
-		}
 		break;
-		
 	case 'mx'://=== MX记录 ===//
 		$CACHE = dns_get_record($query, DNS_MX);
-		$count = count($CACHE) - "1";
-		// for ($i = 0; $i <= $count; $i++){
-		// 	getDNS('MX', $CACHE[$i]['host'], $CACHE[$i]['target'], $CACHE[$i]['pri'], $CACHE[$i]['ttl']);
-		// }
-		if ($count == -1) {
-			echo '没有相关记录或者查询超时,请稍后重试!';
-		} else {
-			echo json_encode($CACHE);
-		}
-		// err($count,'mx');
 		break;
-		
 	case 'cname'://=== CNAME记录 ===//
 		$CACHE = dns_get_record($query, DNS_CNAME);
-		$count = count($CACHE) - "1";
-		// for ($i = 0; $i <= $count; $i++){
-		// 	getDNS('CNAME', $CACHE[$i]['host'], $CACHE[$i]['target'], '-', $CACHE[$i]['ttl']);
-		// }
-		// err($count,'cname');
-		if ($count == -1) {
-			echo '没有相关记录或者查询超时,请稍后重试!';
-		} else {
-			echo json_encode($CACHE);
-		}
 		break;
-		
 	case 'txt'://=== TXT记录 ===//
 		$CACHE = dns_get_record($query, DNS_TXT);
-		$count = count($CACHE) - "1";
-		// for ($i = 0; $i <= $count; $i++){
-		// 	getDNS('TXT', $CACHE[$i]['host'], $CACHE[$i]['txt'], '-', $CACHE[$i]['ttl']);
-		// }
-		// err($count,'txt');
-		if ($count == -1) {
-			echo '没有相关记录或者查询超时,请稍后重试!';
-		} else {
-			echo json_encode($CACHE);
-		}
 		break;
-		
 	case 'srv'://=== SRV记录 ===//
 		$CACHE = dns_get_record($query, DNS_SRV);
-		$count = count($CACHE) - "1";
-		// for ($i = 0; $i <= $count; $i++){
-		// 	getDNS('SRV', $CACHE[$i]['host'], $CACHE[$i]['target'], '-', $CACHE[$i]['ttl']);
-		// }
-		// err($count,'srv');
-		if ($count == -1) {
-			echo '没有相关记录或者查询超时,请稍后重试!';
-		} else {
-			echo json_encode($CACHE);
-		}
 		break;
-}	
+}
+
+$count = count($CACHE) - "1";	
+if ($count == -1) {
+	header("status: 404 Not Found");
+	echo '没有相关记录或者查询超时,请稍后重试!';
+} else {
+	echo json_encode($CACHE);
+}
