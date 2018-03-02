@@ -1,4 +1,8 @@
 <?php
+
+header('Content-type:application/json');
+header("Access-Control-Allow-Origin: *");
+
 $domain = $_GET['domain'];
 $whoisservers = array(
 	"aero"=>"whois.aero",
@@ -78,28 +82,13 @@ function QueryWhoisServer($whoisserver, $domain) {
 	fclose($fp);
 	return $out;
 }
-?>
-<html>
-<head>
-<title>在线域名WHOIS查询(PHP版)</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
 
-<body>
-<form action="<?php $_SERVER['PHP_SELF'];?>">
-  <p><b><label for="domain">查询域名：</label></b>
-  <input type="text" name="domain" id="domain" autocomplete="off" title="cnyinxingshu.com">
-  <input type="submit" value="我要查询">&nbsp;&nbsp;
-   </p>
-</form>
-<?php
 if($domain) {
 	if(!preg_match("/^([-a-z0-9]{2,100})\.([a-z\.]{2,8})$/i", $domain)) {
 		die("查询域名WHOIS格式, 比如. <i>cnyinxingshu.com</i>!");
 	}
 	$result = LookupDomain($domain);
-	echo "<pre>\n" . $result . "\n</pre>\n";
+	echo $result;
+} else {
+	echo '找不到信息';
 }
-?>
-</body>
-</html>
