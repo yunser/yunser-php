@@ -4,4 +4,4 @@ dist
 .idea
 #bin
 /_seo
-/favicon/temp
+/favicon/temp/*.ico
