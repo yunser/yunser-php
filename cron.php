@@ -5,6 +5,8 @@
  * Date: 2017/6/30
  * Time: 0:42
  */
+header('Content-type:application/json');
+header("Access-Control-Allow-Origin: *");
 header('Content-type:text/json');
 
 date_default_timezone_set('PRC');
